@@ -5,14 +5,17 @@
         <meta name="author" content="Jesper Stein Sandal">
         <title>Fix Mail - Format a list of email addresses for use in your email client</title>
         <script>
-            var savedtext;
+            let savedtext = '';
+            let undoText = '';
             function saveText() {
                 savedtext = document.getElementById("rawText").value;
                 console.log("Saved the content of the textarea.");
             }
 
             function undo() {
+                undoText = document.getElementById("rawText").value;
                 document.getElementById("rawText").value = savedtext;
+                savedtext = undoText;
                 console.log("Restored the textarea to the previously saved value. (1 step undo)");
             }
         </script>
