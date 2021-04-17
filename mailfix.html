@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Jesper Stein Sandal">
+        <title>Fiks Alt! - Ret tekstformatering i tekst, HTML og Markdown</title>
+        <script>
+            var savedtext;
+            function saveText() {
+                savedtext = document.getElementById("rawText").value;
+                console.log("Saved the content of the textarea.");
+            }
+
+            function undo() {
+                document.getElementById("rawText").value = savedtext;
+                console.log("Restored the textarea to the previously saved value. (1 step undo)");
+            }
+        </script>
+        <script src="mailfix.js"></script>
+        <script src="validmail.js"></script>
+        <script src="emailPrep.js"></script>
+        <script>
+            function fixAll() {
+                this.saveText();
+                let list = document.getElementById("rawText").value;
+                let result = mailFix(list);
+                document.getElementById("rawText").value = result;
+            }
+        </script>
+        <script>
+            function clearRawarticle() {
+                saveText();
+                document.getElementById("rawText").value = "";
+            }
+        </script>
+        <script>
+            function selectAll() {
+                document.getElementById("rawText").select();
+            }
+        </script>
+        <script>
+            function copy() {
+                let text = document.getElementById("rawText").value;
+                document.execCommand("copy");
+            }
+        </script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="fixer.css">
+    </head>
+    <body>
+        <div class="padded">
+            <h1>Fix mailing lists</h1>
+        </div>
+            <form class="padded">
+                <textarea name="rawText" id="rawText" rows="20" cols="120"></textarea><br>
+                <button type="button" onclick="fixAll()" class="left">Fix it!</button>
+                <button type="button" onclick="selectAll()" class="selectit">Select All</button>
+                <button type="button" onclick="copy()" class="selectit">Copy</button>
+                <button type="button" onclick="clearRawarticle()" class="clear">Clear</button> 
+                <button type="button" onclick="undo()" class="undo">Undo</button><br>
+            </form>
+            <br>
+            <div class="instructions">
+            Copy the list into the text field. Click 'Fix it!' to get a list of email addresses separated by a semi-colon and a space. <br>
+            <br>
+            You can paste this list into your email client.<br>
+            <br>
+            This is useful if you have a list of email addresses in an Excel spreadsheet or a Word document, where each address is on a separate line.
+            </div> 
+
+        </div>
+    </body>
+</html>
